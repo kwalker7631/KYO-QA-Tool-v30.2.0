@@ -1,0 +1,12 @@
+{
+    "model_patterns": [
+        "\\bFS-\\d+[A-Z]*\\b",
+        "\\bKM-\\d+[A-Z]*\\b",
+        "\\bECOSYS\\s+[A-Z]+\\d+[a-z]*\\b",
+        "\\bTASKalfa\\s+\\d+[a-z]*\\b"
+    ],
+    "qa_patterns": [
+        "\\bQA-\\d+\\b",
+        "\\bSB-\\d+\\b"
+    ]
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYO QA Tool v30.2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --kyocera-red: #DA291C;
+            --kyocera-dark-grey: #282828;
+            --kyocera-light-grey: #F2F2F2;
+            --accent-blue: #0A9BCD;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--kyocera-light-grey); 
+        }
+        .log-error { color: var(--kyocera-red); }
+        .log-warning { color: #FFA500; }
+        .log-success { color: #107C10; }
+        #modal-backdrop { background-color: rgba(0,0,0,0.5); }
+        .file-list-item { border-left: 3px solid var(--kyocera-red); }
+        .btn-primary {
+            background-color: var(--kyocera-red);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #b92317;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-6xl mx-auto bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+            <div class="flex items-center space-x-4">
+                <svg class="h-10" viewBox="0 0 160 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.52 0.48H2.48L0 5.16V21.84L2.48 26.52H19.52L22 21.84V5.16L19.52 0.48ZM11 18.84L6.76 13.32L11 7.8V18.84ZM12.2 6.6L16.44 12.12L12.2 17.64V6.6Z" fill="#DA291C"/><path d="M41.842 26.5198V0.479797H50.522C56.282 0.479797 59.522 3.1198 59.522 8.5198C59.522 13.8398 56.402 16.5198 50.882 16.5198H46.602V26.5198H41.842ZM46.602 12.6798H49.682C52.142 12.6798 53.642 11.2398 53.642 8.5598C53.642 5.8798 52.142 4.4398 49.682 4.4398H46.602V12.6798Z" fill="#282828"/><path d="M63.6891 26.5198V0.479797H83.3691V4.4398H68.4491V11.1598H82.1691V15.1198H68.4491V22.5598H83.3691V26.5198H63.6891Z" fill="#282828"/><path d="M112.523 26.5198V16.2798L102.083 0.479797H107.603L113.123 11.0798L118.523 0.479797H123.923L113.543 16.2798V26.5198H112.523Z" fill="#282828"/><path d="M128.238 26.5198V0.479797H138.858C144.918 0.479797 148.158 3.5998 148.158 8.9998C148.158 12.3598 146.778 14.8798 144.438 16.1998L149.358 26.5198H143.718L139.398 17.1598H132.998V26.5198H128.238ZM132.998 13.1998H138.258C141.138 13.1998 143.358 11.7598 143.358 8.9998C143.358 6.2398 141.258 4.4398 138.138 4.4398H132.998V13.1998Z" fill="#282828"/><path d="M98.8165 13.4998L93.3565 0.479797H88.0165L95.8165 26.5198H100.257L108.057 0.479797H102.717L98.8165 13.4998Z" fill="#282828"/><path d="M25.4466 26.5198V0.479797H37.8066V22.5598H40.2066V0.479797H44.9666V26.5198H25.4466Z" fill="#282828"/></svg>
+                <div>
+                    <h1 class="text-2xl font-bold text-[var(--kyocera-dark-grey)]">QA Automation Tool</h1>
+                    <p class="text-gray-500 text-sm">ServiceNow Knowledge Base Processor | v30.2.0</p>
+                </div>
+            </div>
+            <button id="pattern-manager-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg">Pattern Manager</button>
+        </div>
+        <form id="upload-form" class="mt-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <label class="flex items-center space-x-3 mb-3"><span class="bg-[var(--kyocera-red)] text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold">1</span><span class="text-xl font-semibold text-gray-700">Select Excel Template</span></label>
+                    <input type="file" id="excel-file" name="excel" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 cursor-pointer" required>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <label class="flex items-center space-x-3 mb-3"><span class="bg-[var(--kyocera-red)] text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold">2</span><span class="text-xl font-semibold text-gray-700">Select Files to Process</span></label>
+                    <input type="file" id="pdf-files" name="pdfs[]" multiple accept=".pdf,.zip" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer" required>
+                    <p class="text-xs text-gray-500 mt-2">You can select multiple PDFs, a ZIP file, or a mix. For folders, please ZIP them first.</p>
+                </div>
+            </div>
+            <div id="file-preview-container" class="mt-6 hidden">
+                <h3 class="font-semibold text-gray-700">Selected Files:</h3>
+                <div id="file-list" class="mt-2 max-h-40 overflow-y-auto bg-gray-50 p-3 rounded-md border"></div>
+            </div>
+            <div class="mt-8">
+                <button type="submit" id="start-button" class="w-full btn-primary text-white font-bold py-3 px-4 rounded-lg text-xl">Start Processing</button>
+            </div>
+        </form>
+        <div class="mt-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Progress</h2>
+            <div id="status-summary" class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4"></div>
+            <div id="progress-container" class="w-full bg-gray-200 rounded-full h-6" style="display: none;">
+                <div id="progress-bar" class="bg-[var(--accent-blue)] h-6 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full" style="width: 0%">0 / 0</div>
+            </div>
+            <p id="status-text" class="text-center text-gray-600 mt-2">Awaiting job...</p>
+        </div>
+        <div class="mt-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button id="tab-logs" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-[var(--kyocera-red)] text-[var(--kyocera-red)]">Logs</button>
+                    <button id="tab-review" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Needs Review</button>
+                </nav>
+            </div>
+            <div id="log-output-container" class="mt-4">
+                <div id="log-output" class="h-64 bg-gray-900 text-white font-mono text-sm p-4 rounded-lg overflow-y-auto"></div>
+            </div>
+            <div id="review-container" class="mt-4 hidden">
+                <div id="review-list" class="h-64 bg-gray-50 p-4 rounded-lg overflow-y-auto"><p class="text-gray-500">No items need review yet.</p></div>
+            </div>
+        </div>
+        <div id="result-link-container" class="mt-6 text-center" style="display: none;">
+            <a id="result-link" href="#" class="text-2xl font-bold text-green-600 hover:text-green-800 underline">Download Processed Excel File</a>
+        </div>
+    </div>
+    <div id="pattern-modal" class="fixed inset-0 z-50 hidden">
+        <div id="modal-backdrop" class="fixed inset-0"></div>
+        <div class="relative bg-white rounded-lg shadow-xl m-auto max-w-2xl w-full" style="top: 10%;">
+            <div class="p-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold">Pattern Manager</p>
+                    <button id="modal-close-btn" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-lg font-semibold">Model Patterns</h3>
+                    <textarea id="model-patterns-textarea" rows="8" class="w-full p-2 mt-2 border rounded font-mono text-sm"></textarea>
+                    <h3 class="text-lg font-semibold mt-4">QA Number Patterns</h3>
+                    <textarea id="qa-patterns-textarea" rows="4" class="w-full p-2 mt-2 border rounded font-mono text-sm"></textarea>
+                </div>
+                <div class="mt-6 flex justify-end space-x-4">
+                    <p id="pattern-status" class="text-green-600 self-center"></p>
+                    <button id="pattern-save-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/app.js"></script>
+</body>
+</html>

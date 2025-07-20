@@ -1,0 +1,7 @@
+2025-07-20 02:15:47,352 [INFO] root: --- Starting KYO QA Tool v30.2.0 ---
+2025-07-20 02:15:47,352 [INFO] __main__: Attempting to start the Flask server.
+2025-07-20 02:15:47,356 [INFO] __main__: Flask server process started.
+2025-07-20 02:15:47,356 [INFO] __main__: Waiting for server to initialize...
+2025-07-20 02:15:51,357 [INFO] __main__: Server started. Creating UI window...
+2025-07-20 02:16:03,289 [INFO] __main__: UI window closed by user.
+2025-07-20 02:16:03,291 [INFO] __main__: --- Application has exited. ---
